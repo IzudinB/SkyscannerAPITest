@@ -1,5 +1,5 @@
 # SkyscannerAPITest
-Test cases are in root folder
+Test cases are in root folder - Test Cases for Skyscanner.docx
 
 Tehnologies:
 Robot framework (lib:robotframework-requests)
