@@ -5,5 +5,5 @@ Tehnologies:
 Robot framework (lib:robotframework-requests)
 Python 2.7
 
-In terminal from project repository enter:
+In terminal from project directory enter:
 robot -d outputdir API/Skyscanner.robot
