@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20210301 13:14:12.976" generator="Robot 3.2.2 (Python 2.7.18 on win32)">
+<suite source="C:\Projects\SkyscannerAPITest\API\Skyscanner.robot" id="s1" name="Skyscanner">
+<kw type="setup" name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>skyscanner</arg>
+<arg>https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com</arg>
+</arguments>
+<msg timestamp="20210301 13:14:13.867" level="INFO">Creating Session using : alias=skyscanner, url=https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20210301 13:14:13.867" starttime="20210301 13:14:13.867"></status>
+</kw>
+<test id="s1-t1" name="Browse Quotes - verify status code 200">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>x-rapidapi-key=db53320519msh292a4b14f44ca06p17371djsn6139620139fb</arg>
+<arg>x-rapidapi-host=skyscanner-skyscanner-flight-search-v1.p.rapidapi.com</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210301 13:14:13.867" level="INFO">${headers} = {u'x-rapidapi-key': u'db53320519msh292a4b14f44ca06p17371djsn6139620139fb', u'x-rapidapi-host': u'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'}</msg>
+<status status="PASS" endtime="20210301 13:14:13.867" starttime="20210301 13:14:13.867"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>skyscanner</arg>
+<arg>/apiservices/browsequotes/v1.0/${COUNTRY}/${CURRENCY}/${LOCALE}/${ORIGIN_PLACE}/${DESTINATION_PLACE}/${OUTBOUND_DATE}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20210301 13:14:18.088" level="INFO">GET Request : url=https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ path_url=/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ headers={'Accept-Encoding': 'gzip, deflate', 'x-rapidapi-key': u'db53320519msh292a4b14f44ca06p17371djsn6139620139fb', 'Accept': '*/*', 'User-Agent': 'python-requests/2.25.0', 'Connection': 'keep-alive', 'x-rapidapi-host': u'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 13:14:18.150" level="INFO">GET Response : url=https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ status=200, reason=OK 
+ body={
+  "Quotes" : [ {
+    "QuoteId" : 1,
+    "MinPrice" : 64,
+    "Direct" : true,
+    "OutboundLeg" : {
+      "CarrierIds" : [ 1555 ],
+      "OriginId" : 81914,
+      "DestinationId" : 81495,
+      "DepartureDate" : "2021-09-01T00:00:00"
+    },
+    "QuoteDateTime" : "2021-02-28T09:29:00"
+  } ],
+  "Carriers" : [ {
+    "CarrierId" : 1555,
+    "Name" : "Pegasus Airlines"
+  } ],
+  "Places" : [ {
+    "Name" : "Istanbul Sabiha",
+    "Type" : "Station",
+    "PlaceId" : 81495,
+    "IataCode" : "SAW",
+    "SkyscannerCode" : "SAW",
+    "CityName" : "Istanbul",
+    "CityId" : "ISTA",
+    "CountryName" : "Türkei"
+  }, {
+    "Name" : "Sarajevo",
+    "Type" : "Station",
+    "PlaceId" : 81914,
+    "IataCode" : "SJJ",
+    "SkyscannerCode" : "SJJ",
+    "CityName" : "Sarajevo",
+    "CityId" : "SARA",
+    "CountryName" : "Bosnien und Herzegowina"
+  } ],
+  "Currencies" : [ {
+    "Code" : "EUR",
+    "Symbol" : "€",
+    "ThousandsSeparator" : ".",
+    "DecimalSeparator" : ",",
+    "SymbolOnLeft" : false,
+    "SpaceBetweenAmountAndSymbol" : true,
+    "RoundingCoefficient" : 0,
+    "DecimalDigits" : 2
+  } ]
+} 
+ </msg>
+<msg timestamp="20210301 13:14:18.150" level="INFO">c:\users\izudin\venv\lib\site-packages\urllib3\connectionpool.py:1020: InsecureRequestWarning: Unverified HTTPS request is being made to host 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20210301 13:14:18.150" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20210301 13:14:18.150" starttime="20210301 13:14:13.867"></status>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20210301 13:14:18.150" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20210301 13:14:18.150" starttime="20210301 13:14:18.150"></status>
+</kw>
+<status status="PASS" endtime="20210301 13:14:18.150" critical="yes" starttime="20210301 13:14:13.867"></status>
+</test>
+<test id="s1-t2" name="Browse Quotes - validate currency">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>x-rapidapi-key=db53320519msh292a4b14f44ca06p17371djsn6139620139fb</arg>
+<arg>x-rapidapi-host=skyscanner-skyscanner-flight-search-v1.p.rapidapi.com</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20210301 13:14:18.165" level="INFO">${headers} = {u'x-rapidapi-key': u'db53320519msh292a4b14f44ca06p17371djsn6139620139fb', u'x-rapidapi-host': u'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'}</msg>
+<status status="PASS" endtime="20210301 13:14:18.165" starttime="20210301 13:14:18.165"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>skyscanner</arg>
+<arg>/apiservices/browsequotes/v1.0/${COUNTRY}/${CURRENCY}/${LOCALE}/${ORIGIN_PLACE}/${DESTINATION_PLACE}/${OUTBOUND_DATE}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20210301 13:14:18.291" level="INFO">GET Request : url=https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ path_url=/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ headers={'Accept-Encoding': 'gzip, deflate', 'x-rapidapi-key': u'db53320519msh292a4b14f44ca06p17371djsn6139620139fb', 'Accept': '*/*', 'User-Agent': 'python-requests/2.25.0', 'Connection': 'keep-alive', 'x-rapidapi-host': u'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'} 
+ body=None 
+ </msg>
+<msg timestamp="20210301 13:14:18.353" level="INFO">GET Response : url=https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/DE/EUR/de-DE/SJJ-kky/ISTA-sky/2021-09-01 
+ status=200, reason=OK 
+ body={
+  "Quotes" : [ {
+    "QuoteId" : 1,
+    "MinPrice" : 64,
+    "Direct" : true,
+    "OutboundLeg" : {
+      "CarrierIds" : [ 1555 ],
+      "OriginId" : 81914,
+      "DestinationId" : 81495,
+      "DepartureDate" : "2021-09-01T00:00:00"
+    },
+    "QuoteDateTime" : "2021-02-28T09:29:00"
+  } ],
+  "Carriers" : [ {
+    "CarrierId" : 1555,
+    "Name" : "Pegasus Airlines"
+  } ],
+  "Places" : [ {
+    "Name" : "Istanbul Sabiha",
+    "Type" : "Station",
+    "PlaceId" : 81495,
+    "IataCode" : "SAW",
+    "SkyscannerCode" : "SAW",
+    "CityName" : "Istanbul",
+    "CityId" : "ISTA",
+    "CountryName" : "Türkei"
+  }, {
+    "Name" : "Sarajevo",
+    "Type" : "Station",
+    "PlaceId" : 81914,
+    "IataCode" : "SJJ",
+    "SkyscannerCode" : "SJJ",
+    "CityName" : "Sarajevo",
+    "CityId" : "SARA",
+    "CountryName" : "Bosnien und Herzegowina"
+  } ],
+  "Currencies" : [ {
+    "Code" : "EUR",
+    "Symbol" : "€",
+    "ThousandsSeparator" : ".",
+    "DecimalSeparator" : ",",
+    "SymbolOnLeft" : false,
+    "SpaceBetweenAmountAndSymbol" : true,
+    "RoundingCoefficient" : 0,
+    "DecimalDigits" : 2
+  } ]
+} 
+ </msg>
+<msg timestamp="20210301 13:14:18.353" level="INFO">c:\users\izudin\venv\lib\site-packages\urllib3\connectionpool.py:1020: InsecureRequestWarning: Unverified HTTPS request is being made to host 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20210301 13:14:18.353" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20210301 13:14:18.353" starttime="20210301 13:14:18.165"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<assign>
+<var>${json}</var>
+</assign>
+<msg timestamp="20210301 13:14:18.353" level="INFO">${json} = {u'Quotes': [{u'OutboundLeg': {u'CarrierIds': [1555], u'DestinationId': 81495, u'OriginId': 81914, u'DepartureDate': u'2021-09-01T00:00:00'}, u'MinPrice': 64, u'QuoteId': 1, u'Direct': True, u'QuoteDa...</msg>
+<status status="PASS" endtime="20210301 13:14:18.353" starttime="20210301 13:14:18.353"></status>
+</kw>
+<kw name="Get Value From Json" library="JSONLibrary">
+<doc>Get Value From JSON using JSONPath</doc>
+<arguments>
+<arg>${json}</arg>
+<arg>$..Currencies[0].Code</arg>
+</arguments>
+<assign>
+<var>${currency}</var>
+</assign>
+<msg timestamp="20210301 13:14:18.431" level="INFO">${currency} = [u'EUR']</msg>
+<status status="PASS" endtime="20210301 13:14:18.431" starttime="20210301 13:14:18.353"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${currency[0]}</arg>
+<arg>EUR</arg>
+</arguments>
+<status status="PASS" endtime="20210301 13:14:18.431" starttime="20210301 13:14:18.431"></status>
+</kw>
+<status status="PASS" endtime="20210301 13:14:18.431" critical="yes" starttime="20210301 13:14:18.165"></status>
+</test>
+<status status="PASS" endtime="20210301 13:14:18.431" starttime="20210301 13:14:12.976"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="2">Critical Tests</stat>
+<stat fail="0" pass="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Skyscanner" pass="2">Skyscanner</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

@@ -1,0 +1,6 @@
+robotframework
+robotframework-extendedselenium2library
+requests
+robotframework-requests
+robotframework-stringformat
+robotframework-imaplibrary
